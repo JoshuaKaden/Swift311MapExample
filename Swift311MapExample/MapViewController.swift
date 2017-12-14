@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class FirstViewController: UIViewController {
+class MapViewController: UIViewController {
 
     @IBOutlet private weak var mapView: MKMapView!
     
@@ -42,7 +42,7 @@ class FirstViewController: UIViewController {
 
 }
 
-extension FirstViewController: CLLocationManagerDelegate {
+extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         locationManager.stopUpdatingLocation()
