@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93A748441FE31AF100A93649 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A748431FE31AF100A93649 /* MainViewController.swift */; };
 		93B676251FE2E0A2007E8004 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B676241FE2E0A2007E8004 /* AppDelegate.swift */; };
 		93B676271FE2E0A2007E8004 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B676261FE2E0A2007E8004 /* MapViewController.swift */; };
 		93B676291FE2E0A2007E8004 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B676281FE2E0A2007E8004 /* ListViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		93A748431FE31AF100A93649 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		93B676211FE2E0A2007E8004 /* Swift311MapExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swift311MapExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B676241FE2E0A2007E8004 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93B676261FE2E0A2007E8004 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -100,12 +102,13 @@
 			isa = PBXGroup;
 			children = (
 				93B676241FE2E0A2007E8004 /* AppDelegate.swift */,
-				93B676261FE2E0A2007E8004 /* MapViewController.swift */,
+				93B6762D1FE2E0A2007E8004 /* Assets.xcassets */,
+				93B676321FE2E0A3007E8004 /* Info.plist */,
+				93B6762F1FE2E0A3007E8004 /* LaunchScreen.storyboard */,
 				93B676281FE2E0A2007E8004 /* ListViewController.swift */,
 				93B6762A1FE2E0A2007E8004 /* Main.storyboard */,
-				93B6762D1FE2E0A2007E8004 /* Assets.xcassets */,
-				93B6762F1FE2E0A3007E8004 /* LaunchScreen.storyboard */,
-				93B676321FE2E0A3007E8004 /* Info.plist */,
+				93A748431FE31AF100A93649 /* MainViewController.swift */,
+				93B676261FE2E0A2007E8004 /* MapViewController.swift */,
 			);
 			path = Swift311MapExample;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				93B676291FE2E0A2007E8004 /* ListViewController.swift in Sources */,
 				93B676251FE2E0A2007E8004 /* AppDelegate.swift in Sources */,
 				93B676271FE2E0A2007E8004 /* MapViewController.swift in Sources */,
+				93A748441FE31AF100A93649 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
