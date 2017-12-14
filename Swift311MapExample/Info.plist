@@ -51,5 +51,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This application requests your current location to show nearby 311 activity.</string>
 </dict>
 </plist>
