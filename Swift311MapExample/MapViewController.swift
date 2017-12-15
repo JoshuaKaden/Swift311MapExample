@@ -82,6 +82,13 @@ extension MapViewController: CLLocationManagerDelegate {
 }
 
 extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let pin = view.annotation as? ServiceRequestPin else { return }
+        let vc = DetailViewController()
+        vc.serviceRequest = pin.serviceRequest
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let latitude: Double = mapView.centerCoordinate.latitude
         let longitude: Double = mapView.centerCoordinate.longitude
