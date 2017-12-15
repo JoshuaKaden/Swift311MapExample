@@ -9,8 +9,14 @@
 import UIKit
 import MapKit
 
+protocol MapViewControllerDelegate: class {
+    func didChangeRegion(latitude: Double, longitude: Double, withinCircle: Int)
+}
+
 class MapViewController: UIViewController {
 
+    weak var delegate: MapViewControllerDelegate?
+    
     @IBOutlet private weak var mapView: MKMapView!
     
     private let locationManager = CLLocationManager()
@@ -55,5 +61,17 @@ extension MapViewController: CLLocationManagerDelegate {
         
         userLocation = location
         centerMap()
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let latitude: Double = mapView.centerCoordinate.latitude
+        let longitude: Double = mapView.centerCoordinate.longitude
+        
+        let zoomWidth = mapView.visibleMapRect.size.width
+        let zoomFactor = Int(zoomWidth / 20)
+        
+        delegate?.didChangeRegion(latitude: latitude, longitude: longitude, withinCircle: zoomFactor)
     }
 }

@@ -9,16 +9,42 @@
 import UIKit
 
 class MainViewController: UITabBarController {
-    private let client = ServiceRequestClient()
-    private let defaultLatitude: Double = 40.759211
-    private let defaultLongitude: Double = -73.984638
+    private lazy var mapViewController: MapViewController = {
+        guard
+            let navigationController = viewControllers?[0] as? UINavigationController,
+            let mapViewController = navigationController.topViewController as? MapViewController
+        else {
+            assertionFailure("Unexpected view controller hierarchy")
+            return MapViewController()
+        }
+        return mapViewController
+    }()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        client.getServiceRequests(latitude: defaultLatitude, longitude: defaultLongitude, withinCircle: 350) {
+    private lazy var listViewController: ListViewController = {
+        guard
+            let navigationController = viewControllers?[0] as? UINavigationController,
+            let listViewController = navigationController.topViewController as? ListViewController
+        else {
+            assertionFailure("Unexpected view controller hierarchy")
+            return ListViewController()
+        }
+        return listViewController
+    }()
+
+    private let client = ServiceRequestClient()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mapViewController.delegate = self
+    }
+}
+
+extension MainViewController: MapViewControllerDelegate {
+    func didChangeRegion(latitude: Double, longitude: Double, withinCircle: Int) {
+        client.getServiceRequests(latitude: latitude, longitude: longitude, withinCircle: withinCircle) {
             serviceRequests in
-            serviceRequests.map { print($0) }
+            // This is test code
+            serviceRequests.forEach { print($0) }
         }
     }
 }

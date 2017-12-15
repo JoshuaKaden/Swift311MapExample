@@ -13,7 +13,7 @@ struct ServiceRequest: Codable {
     let incidentAddress: String?
     let createdDateString: String
     let status: String
-    let resolutionDescription: String
+    let resolutionDescription: String?
     let latitudeString: String
     let longitudeString: String
     
