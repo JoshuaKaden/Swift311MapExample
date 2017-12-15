@@ -9,7 +9,12 @@
 import Foundation
 
 class ServiceRequestClient {
+    private var isLoading: Bool = false
+    
     func getServiceRequests(latitude: Double, longitude: Double, withinCircle: Int, completion: @escaping ([ServiceRequest]) -> Void) {
+        if isLoading { return }
+        isLoading = true
+        
         // example url:
         // https://data.cityofnewyork.us/resource/erm2-nwe9.json?$where=within_circle(location,40.759211,-73.984638,353)%20and%20created_date%20%3E%20%272017-12-07%27
         
@@ -35,7 +40,11 @@ class ServiceRequestClient {
         }
         
         // Load up the data and pass it to the completion closure.
-        performTask(url: url, completion: completion)
+        performTask(url: url) {
+            serviceRequests in
+            completion(serviceRequests)
+            self.isLoading = false
+        }
     }
     
     private func performTask(url: URL, completion: @escaping ([ServiceRequest]) -> Void) {

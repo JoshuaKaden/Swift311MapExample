@@ -43,8 +43,7 @@ extension MainViewController: MapViewControllerDelegate {
     func didChangeRegion(latitude: Double, longitude: Double, withinCircle: Int) {
         client.getServiceRequests(latitude: latitude, longitude: longitude, withinCircle: withinCircle) {
             serviceRequests in
-            // This is test code
-            serviceRequests.forEach { print($0) }
+            self.mapViewController.serviceRequests = serviceRequests
         }
     }
 }
