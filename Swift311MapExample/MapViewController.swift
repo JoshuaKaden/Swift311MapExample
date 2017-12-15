@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  MapViewController.swift
 //  Swift311MapExample
 //
 //  Created by Kaden, Joshua on 12/14/17.
@@ -16,6 +16,14 @@ protocol MapViewControllerDelegate: class {
 class MapViewController: UIViewController {
 
     weak var delegate: MapViewControllerDelegate?
+    var serviceRequests: [ServiceRequest]? {
+        didSet {
+            DispatchQueue.main.async {
+                self.removePins()
+                self.addPins()
+            }
+        }
+    }
     
     @IBOutlet private weak var mapView: MKMapView!
     
@@ -40,12 +48,21 @@ class MapViewController: UIViewController {
         locationManager.startUpdatingLocation()
     }
     
+    private func addPins() {
+        guard let serviceRequests = serviceRequests else { return }
+        let serviceRequestPins = serviceRequests.flatMap { ServiceRequestPin(serviceRequest: $0) }
+        mapView.addAnnotations(serviceRequestPins)
+    }
+    
     fileprivate func centerMap() {
         guard let userLocation = userLocation else { return }
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800)
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
+    fileprivate func removePins() {
+        mapView.removeAnnotations(mapView.annotations)
+    }
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -73,5 +90,34 @@ extension MapViewController: MKMapViewDelegate {
         let zoomFactor = Int(zoomWidth / 20)
         
         delegate?.didChangeRegion(latitude: latitude, longitude: longitude, withinCircle: zoomFactor)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? ServiceRequestPin else { return nil }
+            
+        let identifier = "pin"
+        var view: MKPinAnnotationView
+        
+        // Check to see if a reusable annotation view is available before creating a new one.
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+        } else {
+            // else create a new annotation view
+            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = true
+            view.calloutOffset = CGPoint(x: -5, y: 5)
+            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
+        }
+        
+        view.pinTintColor = annotation.pinTintColor
+        
+        if self.serviceRequests?.count ?? 0 > 50 {
+            view.animatesDrop = false
+        } else {
+            view.animatesDrop = true
+        }
+        
+        return view
     }
 }

@@ -18,6 +18,7 @@
 		93B676311FE2E0A3007E8004 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93B6762F1FE2E0A3007E8004 /* LaunchScreen.storyboard */; };
 		93B6763C1FE2E0A3007E8004 /* Swift311MapExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B6763B1FE2E0A3007E8004 /* Swift311MapExampleTests.swift */; };
 		93B676471FE2E0A3007E8004 /* Swift311MapExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B676461FE2E0A3007E8004 /* Swift311MapExampleUITests.swift */; };
+		93D20B511FE444D800BFED15 /* ServiceRequestPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D20B501FE444D800BFED15 /* ServiceRequestPin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		93B676421FE2E0A3007E8004 /* Swift311MapExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Swift311MapExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B676461FE2E0A3007E8004 /* Swift311MapExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift311MapExampleUITests.swift; sourceTree = "<group>"; };
 		93B676481FE2E0A3007E8004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93D20B501FE444D800BFED15 /* ServiceRequestPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestPin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				93B676261FE2E0A2007E8004 /* MapViewController.swift */,
 				93A748451FE31C6600A93649 /* ServiceRequest.swift */,
 				93A748471FE31D8A00A93649 /* ServiceRequestClient.swift */,
+				93D20B501FE444D800BFED15 /* ServiceRequestPin.swift */,
 			);
 			path = Swift311MapExample;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				93B676271FE2E0A2007E8004 /* MapViewController.swift in Sources */,
 				93A748481FE31D8A00A93649 /* ServiceRequestClient.swift in Sources */,
 				93A748441FE31AF100A93649 /* MainViewController.swift in Sources */,
+				93D20B511FE444D800BFED15 /* ServiceRequestPin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
