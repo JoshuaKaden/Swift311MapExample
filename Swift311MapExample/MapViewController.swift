@@ -9,8 +9,14 @@
 import UIKit
 import MapKit
 
-class FirstViewController: UIViewController {
+protocol MapViewControllerDelegate: class {
+    func didChangeRegion(latitude: Double, longitude: Double, withinCircle: Int)
+}
 
+class MapViewController: UIViewController {
+
+    weak var delegate: MapViewControllerDelegate?
+    
     @IBOutlet private weak var mapView: MKMapView!
     
     private let locationManager = CLLocationManager()
@@ -42,7 +48,7 @@ class FirstViewController: UIViewController {
 
 }
 
-extension FirstViewController: CLLocationManagerDelegate {
+extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         locationManager.stopUpdatingLocation()
@@ -55,5 +61,17 @@ extension FirstViewController: CLLocationManagerDelegate {
         
         userLocation = location
         centerMap()
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let latitude: Double = mapView.centerCoordinate.latitude
+        let longitude: Double = mapView.centerCoordinate.longitude
+        
+        let zoomWidth = mapView.visibleMapRect.size.width
+        let zoomFactor = Int(zoomWidth / 20)
+        
+        delegate?.didChangeRegion(latitude: latitude, longitude: longitude, withinCircle: zoomFactor)
     }
 }
