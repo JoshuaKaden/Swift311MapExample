@@ -23,6 +23,7 @@ class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
         view.addSubview(tableView)
     }
 
@@ -57,5 +58,14 @@ extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let serviceRequests = serviceRequests else { return 0 }
         return serviceRequests.count
+    }
+}
+
+extension ListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let serviceRequests = serviceRequests else { return }
+        let vc = DetailViewController()
+        vc.serviceRequest = serviceRequests[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
