@@ -10,8 +10,8 @@ import MapKit
 
 class ServiceRequestPin: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
-    var subtitle: String? { return "Created " + serviceRequest.createdDateString }
-    var title: String? { return serviceRequest.complaintType + ": " + serviceRequest.status }
+    var subtitle: String? { return serviceRequest.subtitle }
+    var title: String? { return serviceRequest.title }
 
     let serviceRequest: ServiceRequest
     
