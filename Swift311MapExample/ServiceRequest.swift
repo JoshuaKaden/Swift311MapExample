@@ -17,6 +17,9 @@ struct ServiceRequest: Codable {
     let latitudeString: String
     let longitudeString: String
     
+    var subtitle: String { return "Created " + createdDateString }
+    var title: String { return complaintType + ": " + status }
+
     private enum CodingKeys : String, CodingKey {
         case complaintType = "complaint_type"
         case incidentAddress = "incident_address"

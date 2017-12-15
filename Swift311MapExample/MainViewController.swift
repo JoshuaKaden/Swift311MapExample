@@ -22,7 +22,7 @@ class MainViewController: UITabBarController {
     
     private lazy var listViewController: ListViewController = {
         guard
-            let navigationController = viewControllers?[0] as? UINavigationController,
+            let navigationController = viewControllers?[1] as? UINavigationController,
             let listViewController = navigationController.topViewController as? ListViewController
         else {
             assertionFailure("Unexpected view controller hierarchy")
@@ -44,6 +44,7 @@ extension MainViewController: MapViewControllerDelegate {
         client.getServiceRequests(latitude: latitude, longitude: longitude, withinCircle: withinCircle) {
             serviceRequests in
             self.mapViewController.serviceRequests = serviceRequests
+            self.listViewController.serviceRequests = serviceRequests
         }
     }
 }
