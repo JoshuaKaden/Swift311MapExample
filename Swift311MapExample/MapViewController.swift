@@ -32,7 +32,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
@@ -52,6 +52,14 @@ class MapViewController: UIViewController {
         guard let serviceRequests = serviceRequests else { return }
         let serviceRequestPins = serviceRequests.flatMap { ServiceRequestPin(serviceRequest: $0) }
         mapView.addAnnotations(serviceRequestPins)
+    }
+    
+    fileprivate func calculateMetersOnMap() -> Double {
+        let visibleRectangle = mapView.visibleMapRect
+        let midY = MKMapRectGetMidY(visibleRectangle)
+        let eastPoint = MKMapPointMake(MKMapRectGetMinX(visibleRectangle), midY)
+        let westPoint = MKMapPointMake(MKMapRectGetMaxX(visibleRectangle), midY)
+        return MKMetersBetweenMapPoints(eastPoint, westPoint)
     }
     
     fileprivate func centerMap() {
@@ -92,11 +100,8 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let latitude: Double = mapView.centerCoordinate.latitude
         let longitude: Double = mapView.centerCoordinate.longitude
-        
-        let zoomWidth = mapView.visibleMapRect.size.width
-        let zoomFactor = Int(zoomWidth / 20)
-        
-        delegate?.didChangeRegion(latitude: latitude, longitude: longitude, withinCircle: zoomFactor)
+        let meters: Double = calculateMetersOnMap()
+        delegate?.didChangeRegion(latitude: latitude, longitude: longitude, withinCircle: Int(meters))
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
