@@ -53,7 +53,7 @@ class MapViewController: UIViewController {
     
     fileprivate func centerMap() {
         guard let userLocation = userLocation else { return }
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 400, 400)
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
@@ -73,7 +73,7 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let latitude: Double = mapView.centerCoordinate.latitude
         let longitude: Double = mapView.centerCoordinate.longitude
-        let meters: Double = calculateMetersOnMap() / 2
+        let meters: Double = calculateMetersOnMap()
         delegate?.didChangeRegion(latitude: latitude, longitude: longitude, withinCircle: Int(meters))
     }
     

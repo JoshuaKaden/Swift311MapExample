@@ -20,12 +20,21 @@ final class ARViewController: UIViewController {
     
     var serviceRequests: [ServiceRequest]? {
         didSet {
-            guard let first = serviceRequests?.first else { return }
+            nodes.forEach { $0.removeFromParentNode() }
+            nodes.removeAll()
+            
+            guard let serviceRequests = serviceRequests else { return }
+            
+            nodes.append(contentsOf: serviceRequests.map {
+                sr in
+                let node = self.buildNode()
+                let location = CLLocation(latitude: Double(sr.latitudeString)!, longitude: Double(sr.longitudeString)!)
+                self.position(node: node, location: location)
+                return node
+            })
+            
             DispatchQueue.main.async {
-                self.modelNode.removeFromParentNode()
-                let location = CLLocation(latitude: Double(first.latitudeString)!, longitude: Double(first.longitudeString)!)
-                self.position(node: self.modelNode, location: location)
-                self.sceneView.scene.rootNode.addChildNode(self.modelNode)
+                self.nodes.forEach { self.sceneView.scene.rootNode.addChildNode($0) }
             }
         }
     }
@@ -40,22 +49,8 @@ final class ARViewController: UIViewController {
     
     private var heading = Double(0)
     
-    private lazy var modelNode: SCNNode = {
-        let node = modelScene.rootNode.childNode(withName: rootNodeName, recursively: true)!
-        
-        let (minBox, maxBox) = node.boundingBox
-        node.pivot = SCNMatrix4MakeTranslation(0, (maxBox.y - minBox.y) / 2, 0)
-        
-        originalTransform = node.transform
-        
-        let arrow = makeBillboardNode(UIImage(named: "listTabBarIcon")!)
-        arrow.position = SCNVector3Make(0, 4, 0)
-        node.addChildNode(arrow)
-        
-        return node
-    }()
-    
     private let modelScene = SCNScene(named: "Art.scnassets/DiamondGem.dae")!
+    private var nodes: [SCNNode] = []
     private var originalTransform: SCNMatrix4!
     private let rootNodeName = "DiamondGem.obj"
     
@@ -83,6 +78,22 @@ final class ARViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
+    func buildNode() -> SCNNode {
+        let uberNode = modelScene.rootNode.childNode(withName: rootNodeName, recursively: true)!
+        let node = uberNode.clone()
+        
+        let (minBox, maxBox) = node.boundingBox
+        node.pivot = SCNMatrix4MakeTranslation(0, (maxBox.y - minBox.y) / 2, 0)
+        
+//        originalTransform = node.transform
+        
+        //        let arrow = makeBillboardNode(UIImage(named: "listTabBarIcon")!)
+        //        arrow.position = SCNVector3Make(0, 4, 0)
+        //        node.addChildNode(arrow)
+        
+        return node
+    }
     
     func makeBillboardNode(_ image: UIImage) -> SCNNode {
         let plane = SCNPlane(width: 10, height: 10)

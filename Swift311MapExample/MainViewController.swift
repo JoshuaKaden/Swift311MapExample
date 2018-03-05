@@ -43,7 +43,7 @@ class MainViewController: UITabBarController {
     private let client = ServiceRequestClient()
     private let locationManager = CLLocationManager()
     fileprivate var userLocation: CLLocation?
-    fileprivate var withinCircle: Int = 800
+    fileprivate var withinCircle: Int = 400
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ class MainViewController: UITabBarController {
         arViewController.delegate = self
         
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,6 +108,7 @@ extension MainViewController: CLLocationManagerDelegate {
 
 extension MainViewController: MapViewControllerDelegate {
     func didChangeRegion(latitude: Double, longitude: Double, withinCircle: Int) {
+        self.withinCircle = withinCircle
         loadData(latitude: latitude, longitude: longitude, withinCircle: withinCircle)
     }
 }
