@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		939FDB0C204D9986007605BF /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FDB0B204D9986007605BF /* ARViewController.swift */; };
+		939FDB0E204D9C25007605BF /* FloatingPoint+RadiansDegrees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FDB0D204D9C25007605BF /* FloatingPoint+RadiansDegrees.swift */; };
+		939FDB10204D9C7C007605BF /* Art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 939FDB0F204D9C7C007605BF /* Art.scnassets */; };
 		93A748441FE31AF100A93649 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A748431FE31AF100A93649 /* MainViewController.swift */; };
 		93A748461FE31C6600A93649 /* ServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A748451FE31C6600A93649 /* ServiceRequest.swift */; };
 		93A748481FE31D8A00A93649 /* ServiceRequestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A748471FE31D8A00A93649 /* ServiceRequestClient.swift */; };
@@ -40,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		939FDB0B204D9986007605BF /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
+		939FDB0D204D9C25007605BF /* FloatingPoint+RadiansDegrees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloatingPoint+RadiansDegrees.swift"; sourceTree = "<group>"; };
+		939FDB0F204D9C7C007605BF /* Art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Art.scnassets; sourceTree = "<group>"; };
 		93A748431FE31AF100A93649 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		93A748451FE31C6600A93649 /* ServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequest.swift; sourceTree = "<group>"; };
 		93A748471FE31D8A00A93649 /* ServiceRequestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequestClient.swift; sourceTree = "<group>"; };
@@ -110,8 +116,11 @@
 			isa = PBXGroup;
 			children = (
 				93B676241FE2E0A2007E8004 /* AppDelegate.swift */,
+				939FDB0F204D9C7C007605BF /* Art.scnassets */,
+				939FDB0B204D9986007605BF /* ARViewController.swift */,
 				93B6762D1FE2E0A2007E8004 /* Assets.xcassets */,
 				93D20B521FE45F5200BFED15 /* DetailViewController.swift */,
+				939FDB0D204D9C25007605BF /* FloatingPoint+RadiansDegrees.swift */,
 				93B676321FE2E0A3007E8004 /* Info.plist */,
 				93B6762F1FE2E0A3007E8004 /* LaunchScreen.storyboard */,
 				93B676281FE2E0A2007E8004 /* ListViewController.swift */,
@@ -251,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93B676311FE2E0A3007E8004 /* LaunchScreen.storyboard in Resources */,
+				939FDB10204D9C7C007605BF /* Art.scnassets in Resources */,
 				93B6762E1FE2E0A2007E8004 /* Assets.xcassets in Resources */,
 				93B6762C1FE2E0A2007E8004 /* Main.storyboard in Resources */,
 			);
@@ -280,9 +290,11 @@
 				93A748461FE31C6600A93649 /* ServiceRequest.swift in Sources */,
 				93B676291FE2E0A2007E8004 /* ListViewController.swift in Sources */,
 				93B676251FE2E0A2007E8004 /* AppDelegate.swift in Sources */,
+				939FDB0C204D9986007605BF /* ARViewController.swift in Sources */,
 				93B676271FE2E0A2007E8004 /* MapViewController.swift in Sources */,
 				93A748481FE31D8A00A93649 /* ServiceRequestClient.swift in Sources */,
 				93A748441FE31AF100A93649 /* MainViewController.swift in Sources */,
+				939FDB0E204D9C25007605BF /* FloatingPoint+RadiansDegrees.swift in Sources */,
 				93D20B511FE444D800BFED15 /* ServiceRequestPin.swift in Sources */,
 				93D20B531FE45F5200BFED15 /* DetailViewController.swift in Sources */,
 			);
@@ -387,7 +399,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -438,7 +450,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -453,6 +465,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E5LW2CH45C;
 				INFOPLIST_FILE = Swift311MapExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.doitt.Swift311MapExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -468,6 +481,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E5LW2CH45C;
 				INFOPLIST_FILE = Swift311MapExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = gov.nyc.doitt.Swift311MapExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

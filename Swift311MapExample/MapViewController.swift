@@ -24,30 +24,19 @@ class MapViewController: UIViewController {
             }
         }
     }
-    
-    @IBOutlet private weak var mapView: MKMapView!
-    
-    private let locationManager = CLLocationManager()
-    fileprivate var userLocation: CLLocation?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.requestWhenInUseAuthorization()
+    var userLocation: CLLocation? {
+        didSet {
+            centerMap()
+        }
     }
 
+    @IBOutlet private weak var mapView: MKMapView!
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        locationManager.startUpdatingLocation()
-    }
-    
     private func addPins() {
         guard let serviceRequests = serviceRequests else { return }
         let serviceRequestPins = serviceRequests.flatMap { ServiceRequestPin(serviceRequest: $0) }
@@ -73,22 +62,6 @@ class MapViewController: UIViewController {
     }
 }
 
-extension MapViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else { return }
-        locationManager.stopUpdatingLocation()
-        
-        if let userLocation = userLocation {
-            if userLocation.coordinate.latitude == location.coordinate.latitude && userLocation.coordinate.longitude == location.coordinate.longitude {
-                return
-            }
-        }
-        
-        userLocation = location
-        centerMap()
-    }
-}
-
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         guard let pin = view.annotation as? ServiceRequestPin else { return }
@@ -100,7 +73,7 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let latitude: Double = mapView.centerCoordinate.latitude
         let longitude: Double = mapView.centerCoordinate.longitude
-        let meters: Double = calculateMetersOnMap()
+        let meters: Double = calculateMetersOnMap() / 2
         delegate?.didChangeRegion(latitude: latitude, longitude: longitude, withinCircle: Int(meters))
     }
     
