@@ -27,7 +27,7 @@ final class ARViewController: UIViewController {
             
             nodes.append(contentsOf: serviceRequests.map {
                 sr in
-                let node = self.buildBillboardNode() //self.buildNode()
+                let node = self.buildBillboardNode(image: UIImage(complaintType: sr.complaintType)) //self.buildNode()
                 let location = CLLocation(latitude: Double(sr.latitudeString)!, longitude: Double(sr.longitudeString)!)
                 self.position(node: node, location: location)
                 return node

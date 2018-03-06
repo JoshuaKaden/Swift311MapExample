@@ -51,6 +51,7 @@ extension ListViewController: UITableViewDataSource {
             let serviceRequest = serviceRequests[indexPath.row]
             cell.textLabel?.text = serviceRequest.title
             cell.detailTextLabel?.text = serviceRequest.subtitle
+            cell.imageView?.image = UIImage(complaintType: serviceRequest.complaintType)
         }
         return cell
     }
