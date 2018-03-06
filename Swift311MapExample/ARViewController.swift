@@ -27,7 +27,7 @@ final class ARViewController: UIViewController {
             
             nodes.append(contentsOf: serviceRequests.map {
                 sr in
-                let node = self.buildNode()
+                let node = self.buildBillboardNode() //self.buildNode()
                 let location = CLLocation(latitude: Double(sr.latitudeString)!, longitude: Double(sr.longitudeString)!)
                 self.position(node: node, location: location)
                 return node
@@ -41,17 +41,17 @@ final class ARViewController: UIViewController {
     
     var userLocation: CLLocation? {
         didSet {
-//            centerMap()
+            if hasViewAppeared {
+                delegate?.requestData()
+            }
         }
     }
 
     @IBOutlet private weak var sceneView: ARSCNView!
     
-    private var heading = Double(0)
-    
+    private var hasViewAppeared = false
     private let modelScene = SCNScene(named: "Art.scnassets/DiamondGem.dae")!
     private var nodes: [SCNNode] = []
-    private var originalTransform: SCNMatrix4!
     private let rootNodeName = "DiamondGem.obj"
     
     override func viewDidLoad() {
@@ -69,17 +69,34 @@ final class ARViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        hasViewAppeared = true
         delegate?.requestData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        hasViewAppeared = false
         sceneView.session.pause()
     }
     
     // MARK: - Private Methods
     
-    func buildNode() -> SCNNode {
+    func buildBillboardNode(image: UIImage? = nil) -> SCNNode {
+        let billboardImage: UIImage
+        if image == nil {
+            billboardImage = UIImage(named: "listTabBarIcon")!
+        } else {
+            billboardImage = image!
+        }
+        
+        let plane = SCNPlane(width: 10, height: 10)
+        plane.firstMaterial!.diffuse.contents = billboardImage
+        let node = SCNNode(geometry: plane)
+        node.constraints = [SCNBillboardConstraint()]
+        return node
+    }
+
+    private func buildNode() -> SCNNode {
         let uberNode = modelScene.rootNode.childNode(withName: rootNodeName, recursively: true)!
         let node = uberNode.clone()
         
@@ -92,14 +109,6 @@ final class ARViewController: UIViewController {
         //        arrow.position = SCNVector3Make(0, 4, 0)
         //        node.addChildNode(arrow)
         
-        return node
-    }
-    
-    func makeBillboardNode(_ image: UIImage) -> SCNNode {
-        let plane = SCNPlane(width: 10, height: 10)
-        plane.firstMaterial!.diffuse.contents = image
-        let node = SCNNode(geometry: plane)
-        node.constraints = [SCNBillboardConstraint()]
         return node
     }
     

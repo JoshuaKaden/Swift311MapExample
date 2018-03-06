@@ -74,7 +74,7 @@ extension MapViewController: MKMapViewDelegate {
         let latitude: Double = mapView.centerCoordinate.latitude
         let longitude: Double = mapView.centerCoordinate.longitude
         let meters: Double = calculateMetersOnMap()
-        delegate?.didChangeRegion(latitude: latitude, longitude: longitude, withinCircle: Int(meters))
+        delegate?.didChangeRegion(latitude: latitude, longitude: longitude, withinCircle: Int(meters / 2))
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
