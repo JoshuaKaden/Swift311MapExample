@@ -16,6 +16,7 @@ protocol MapViewControllerDelegate: class {
 class MapViewController: UIViewController {
 
     weak var delegate: MapViewControllerDelegate?
+    private var hasAppeared = false
     var serviceRequests: [ServiceRequest]? {
         didSet {
             DispatchQueue.main.async {
@@ -45,6 +46,10 @@ class MapViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if hasAppeared {
+            return
+        }
+        hasAppeared = true
         locationManager.startUpdatingLocation()
     }
     

@@ -41,7 +41,13 @@ class MainViewController: UITabBarController {
 
 extension MainViewController: MapViewControllerDelegate {
     func didChangeRegion(latitude: Double, longitude: Double, withinCircle: Int) {
-        client.getServiceRequests(latitude: latitude, longitude: longitude, withinCircle: withinCircle) {
+        let maxxedCircle: Int
+        if withinCircle > 750 {
+            maxxedCircle = 750
+        } else {
+            maxxedCircle = withinCircle
+        }
+        client.getServiceRequests(latitude: latitude, longitude: longitude, withinCircle: maxxedCircle) {
             serviceRequests in
             self.mapViewController.serviceRequests = serviceRequests
             self.listViewController.serviceRequests = serviceRequests
