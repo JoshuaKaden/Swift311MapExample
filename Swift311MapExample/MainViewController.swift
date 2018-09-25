@@ -108,7 +108,11 @@ extension MainViewController: CLLocationManagerDelegate {
 
 extension MainViewController: MapViewControllerDelegate {
     func didChangeRegion(latitude: Double, longitude: Double, withinCircle: Int) {
-        self.withinCircle = withinCircle
-        loadData(latitude: latitude, longitude: longitude, withinCircle: withinCircle)
+        if withinCircle <= 1000 {
+            self.withinCircle = withinCircle
+        } else {
+            self.withinCircle = 1000
+        }
+        loadData(latitude: latitude, longitude: longitude, withinCircle: self.withinCircle)
     }
 }

@@ -63,14 +63,14 @@ class ServiceRequestClient {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         // (one week = 604,800 seconds)
         let dateString = dateFormatter.string(from: Date.init(timeIntervalSinceNow: -604_800))
-        let whereClause = "within_circle(location,\(latitudeString),\(longitudeString),\(withinCircle)) and created_date > '\(dateString)'"
+        let whereClause = "within_circle(location,\(latitudeString),\(longitudeString),\(withinCircle)) and created_date > '\(dateString)' and (status = 'Open' or status = 'Assigned')"
         
         // Build the url
         var components = URLComponents()
         components.scheme = "https"
         components.host = "data.cityofnewyork.us"
         components.path = "/resource/erm2-nwe9.json"
-        components.queryItems = [URLQueryItem(name: "$where", value: whereClause)]
+        components.queryItems = [URLQueryItem(name: "$limit", value: "50"), URLQueryItem(name: "$where", value: whereClause)]
         return components.url
     }
     

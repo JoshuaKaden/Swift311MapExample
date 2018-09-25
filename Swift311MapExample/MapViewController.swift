@@ -97,7 +97,7 @@ extension MapViewController: MKMapViewDelegate {
         
         view.pinTintColor = annotation.pinTintColor
         
-        if self.serviceRequests?.count ?? 0 > 50 {
+        if self.serviceRequests?.count ?? 0 > 25 {
             view.animatesDrop = false
         } else {
             view.animatesDrop = true
