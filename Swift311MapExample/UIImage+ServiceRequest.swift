@@ -25,6 +25,7 @@ extension UIImage {
         MuniMeter,
         NewTree,
         Noise,
+        Other,
         ParksAndRecreation,
         RatCondition,
         Restaurant,
@@ -51,7 +52,7 @@ extension UIImage {
             serviceRequestIconName = .AbandonedVehicle
         case "buildingGraffiti":
             serviceRequestIconName = .BuildingGraffiti
-        case "damagedTree":
+        case "damagedTree", "Dead/Dying Tree", "Damaged Tree":
             serviceRequestIconName = .DamagedTree
         case "Dirty Conditions", "Request Large Bulky Item Collection", "Sanitation Condition":
             serviceRequestIconName = .DirtyVacantLot
@@ -67,19 +68,19 @@ extension UIImage {
             serviceRequestIconName = .HomelessAssistance
         case "Illegal Parking":
             serviceRequestIconName = .IllegalParking
-        case "muniMeter":
+        case "muniMeter", "Broken Parking Meter":
             serviceRequestIconName = .MuniMeter
         case "newTree":
             serviceRequestIconName = .NewTree
-        case "Noise", "Noise - Residential", "Noise - Street/Sidewalk", "Noise - Commercial":
+        case "Noise", "Noise - Residential", "Noise - Street/Sidewalk", "Noise - Commercial", "Noise - Helicopter":
             serviceRequestIconName = .Noise
         case "parksAndRecreation":
             serviceRequestIconName = .ParksAndRecreation
         case "Rodent":
             serviceRequestIconName = .RatCondition
-        case "restaurant":
+        case "restaurant", "Food Establishment":
             serviceRequestIconName = .Restaurant
-        case "sidewalk":
+        case "sidewalk", "Sidewalk Condition", "Curb Condition", "Root/Sewer/Sidewalk Condition":
             serviceRequestIconName = .Sidewalk
         case "snowOnRoadway":
             serviceRequestIconName = .SnowOnRoadway
@@ -89,16 +90,16 @@ extension UIImage {
             serviceRequestIconName = .Streetlight
         case "Street Condition", "Highway Condition":
             serviceRequestIconName = .StreetPothole
-        case "Street Sign - Missing":
+        case "Street Sign - Missing", "Street Sign - Damaged":
             serviceRequestIconName = .StreetSign
-        case "taxiDriver":
+        case "taxiDriver", "Taxi Complaint", "For Hire Vehicle Complaint":
             serviceRequestIconName = .TaxiDriver
         case "taxiLostProperty":
             serviceRequestIconName = .TaxiLostProperty
-        case "trafficLight":
+        case "trafficLight", "Traffic Signal Condition":
             serviceRequestIconName = .TrafficLight
         default:
-            serviceRequestIconName = .Unknown
+            serviceRequestIconName = .Other
         }
         
         self.init(serviceRequestIconName: serviceRequestIconName)
