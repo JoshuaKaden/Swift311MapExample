@@ -16,6 +16,7 @@ protocol MapViewControllerDelegate: class {
 class MapViewController: UIViewController {
 
     weak var delegate: MapViewControllerDelegate?
+    private var oldCenterMapPoint: MKMapPoint?
     var serviceRequests: [ServiceRequest]? {
         didSet {
             DispatchQueue.main.async {
@@ -44,8 +45,8 @@ class MapViewController: UIViewController {
     }
     
     fileprivate func calculateMetersOnMap() -> Double {
+        let midY = mapView.centerMapPoint.y
         let visibleRectangle = mapView.visibleMapRect
-        let midY = MKMapRectGetMidY(visibleRectangle)
         let eastPoint = MKMapPointMake(MKMapRectGetMinX(visibleRectangle), midY)
         let westPoint = MKMapPointMake(MKMapRectGetMaxX(visibleRectangle), midY)
         return MKMetersBetweenMapPoints(eastPoint, westPoint)
@@ -71,6 +72,19 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        if self.oldCenterMapPoint == nil {
+            self.oldCenterMapPoint = mapView.centerMapPoint
+        }
+        let oldCenterMapPoint = self.oldCenterMapPoint!
+        
+        let centerMapPoint = mapView.centerMapPoint
+        if oldCenterMapPoint != centerMapPoint && MKMetersBetweenMapPoints(centerMapPoint, oldCenterMapPoint) < 100 {
+            // too little difference; don't reload
+            return
+        }
+        
+        self.oldCenterMapPoint = centerMapPoint
+        
         let latitude: Double = mapView.centerCoordinate.latitude
         let longitude: Double = mapView.centerCoordinate.longitude
         let meters: Double = calculateMetersOnMap()
@@ -105,4 +119,19 @@ extension MapViewController: MKMapViewDelegate {
         
         return view
     }
+}
+
+// MARK: - MKMapView center map point
+
+fileprivate extension MKMapView {
+    var centerMapPoint: MKMapPoint {
+        let visibleRectangle = visibleMapRect
+        return MKMapPointMake(MKMapRectGetMidX(visibleRectangle), MKMapRectGetMidY(visibleRectangle))
+    }
+}
+
+// MARK: - MKMapPoint inequality
+
+fileprivate func !=(lhs: MKMapPoint, rhs: MKMapPoint) -> Bool {
+    return lhs.x != rhs.x || lhs.y != rhs.y
 }
